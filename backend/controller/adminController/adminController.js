@@ -54,28 +54,28 @@ exports.admindetails = async (req, res) => {
 
 exports.adminAddvehicle = async (req, res) => {
     const { name, description, price, model } = req.body;
-    const image = req.file;
-    
+    const image = req.files;
+
     if (!name || !description || !price || !model) {
         return res.status(400).json({ message: 'All fields are required' });
     }
+    console.log(image[0]?.filename, "imagecheck");
 
-    
     if (name.trim() === '' || description.trim() === '' || model.trim() === '') {
         return res.status(400).json({ message: 'Name, description, and model cannot be empty' });
     }
 
     try {
-        
+
         const newVehicle = new Vehicle({
             name,
             description,
             price,
             model,
-            image: image ? image.path : null 
+            image: image[0].filename
         });
 
-    
+
         await newVehicle.save();
 
         res.status(200).json({ message: 'Vehicle added successfully', vehicle: newVehicle });
@@ -93,6 +93,83 @@ exports.getVehicle = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: "Internal server error" });
     }
+}
+
+exports.delVehicle = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedVehicle = await Vehicle.findByIdAndDelete(id);
+
+        if (!deletedVehicle) {
+            return res.status(404).json({ message: 'Vehicle not found' });
+        }
+
+        res.status(200).json({ message: 'Vehicle deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting vehicle:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+exports.particularvehicle = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const vehicle = await Vehicle.findById(id);
+
+        if (!vehicle) {
+            return res.status(404).json({ message: 'Vehicle not found' });
+        }
+
+        res.status(200).json(vehicle);
+    } catch (error) {
+        console.error('Error fetching vehicle details:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+
+exports.updatvehicle = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log('Form Data:', req.body); // Log body fields
+        console.log('File:', req.file); // Log the file
+        const { name, description, price, model } = req.body;
+        console.log(name, description, price, model)
+        const files = req.files;
+
+       
+        const vehicle = await Vehicle.findById(id);
+        if (!vehicle) {
+            return res.status(404).json({ message: 'Vehicle not found' });
+        }
+
+        
+        const updatedVehicle = {
+            name: name || vehicle.name,
+            description: description || vehicle.description,
+            price: price || vehicle.price,
+            model: model || vehicle.model,
+            image: files && files.length > 0 ? files[0].path : vehicle.image 
+        };
+
+       
+        const updated = await Vehicle.findByIdAndUpdate(id, updatedVehicle, { new: true });
+
+        res.status(200).json({ message: 'Vehicle updated successfully', vehicle: updated });
+    } catch (error) {
+        console.error('Error updating vehicle:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+exports.adminLogout = async (req, res, next) => {
+    try {
+        res.cookie('Admintoken', '').json(true);
+    }
+    catch (err) {
+        next(err);
+    }
+
 }
 
 // exports.adminLogin = async (req, res, next) => {

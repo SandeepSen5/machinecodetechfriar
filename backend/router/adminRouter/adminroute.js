@@ -22,11 +22,17 @@ router.post("/login", admincontroller.adminLogin);
 
 router.get("/profile", verify, admincontroller.admindetails);
 
-router.post('/vehicles', upload.array('image', 5), admincontroller.adminAddvehicle);
+router.post('/vehicles', verify, upload.array('image', 1), admincontroller.adminAddvehicle);
 
-
+router.delete('/deletevehicle/:id', verify, admincontroller.delVehicle)
 
 router.get('/vehicles', admincontroller.getVehicle);
+
+router.get('/editvehicle/:id', admincontroller.particularvehicle);
+
+router.patch('/updatevehicle/:id', upload.array('image', 1), admincontroller.updatvehicle);
+
+router.get('/logout', admincontroller.adminLogout)
 
 module.exports = router;
 
