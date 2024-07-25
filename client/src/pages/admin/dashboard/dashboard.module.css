@@ -1,0 +1,100 @@
+.dashboardmain {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+}
+
+.dashboardheader {
+    margin-bottom: 20px;
+}
+
+.dashboardheader h5 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.formfields {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.formfields form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formfields form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.formfields label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.formfields input[type="text"],
+.formfields input[type="number"],
+.formfields input[type="file"],
+.formfields textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.formfields button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.formfields button:hover {
+    background-color: #0056b3;
+}
+
+.vehiclecards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.cardName,
+.cardPrice {
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+}

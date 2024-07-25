@@ -1,0 +1,38 @@
+.adminLoginmain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }
+  
+  .adminLoginsubmain {
+    text-align: center;
+    background-color: rgb(218, 220, 222);
+    padding: 60px;
+  }
+  
+  .adminLoginfeildmain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    max-width: 300px; 
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
